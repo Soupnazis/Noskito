@@ -1,4 +1,4 @@
-﻿namespace Noskito.Database.Abstraction.Entities
+﻿namespace Noskito.Database.Abstraction.Entity
 {
     public record Account
     {

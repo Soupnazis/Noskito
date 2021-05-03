@@ -1,7 +1,15 @@
-﻿namespace Noskito.Login.Processor.Extension
+﻿using Microsoft.Extensions.DependencyInjection;
+using Noskito.Common.Extension;
+
+
+namespace Noskito.Login.Processor.Extension
 {
-    public class ServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
-        
+        public static void AddPacketProcessing(this IServiceCollection services)
+        {
+            services.AddSingleton<ProcessorManager>();
+            services.AddImplementingTypes<IPacketProcessor>();
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Noskito.Packet.Client
 {
-    public class ClientPacket
+    public abstract class ClientPacket
     {
         
     }

@@ -1,14 +1,14 @@
 ﻿namespace Noskito.Packet.Client.Authentication
 {
-    public class NoS05755 : ClientPacket
+    public class NoS0575 : ClientPacket
     {
         public string Username { get; init; }
         public string Password { get; init; }
     }
 
-    public class NoS05755Creator : ClientPacketCreator<NoS05755>
+    public class NoS0575Creator : ClientPacketCreator<NoS0575>
     {
-        protected override NoS05755 Create(string[] arguments)
+        protected override NoS0575 Create(string[] arguments)
         {
             return new()
             {

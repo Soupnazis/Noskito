@@ -1,6 +1,6 @@
 ﻿namespace Noskito.Packet.Server
 {
-    public class ServerPacket
+    public abstract class ServerPacket
     {
         
     }

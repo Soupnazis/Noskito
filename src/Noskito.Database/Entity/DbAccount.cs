@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Noskito.Database.Entities
+namespace Noskito.Database.Entity
 {
     [Table("account")]
     public class DbAccount

@@ -1,6 +1,8 @@
-﻿namespace Noskito.Network
+﻿using DotNetty.Transport.Channels;
+
+namespace Noskito.Network
 {
-    public class Client
+    public abstract class Client : ChannelHandlerAdapter
     {
         
     }

@@ -1,6 +1,6 @@
 ﻿namespace Noskito.Packet.Client
 {
-    public class UnresolvedClientPacket
+    public class UnresolvedPacket : ClientPacket
     {
         
     }

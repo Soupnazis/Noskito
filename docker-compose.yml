@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  database:
+    container_name: noskito-db
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=noskito
+      - POSTGRES_PASSWORD=noskito
+      - POSTGRES_DB=noskito
+    ports:
+      - 5432:5432
+    volumes:
+    - database-data:/var/lib/postgresql/data
+volumes:
+  database-data: 

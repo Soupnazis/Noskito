@@ -1,10 +1,12 @@
-﻿namespace Noskito.Database
+﻿using Microsoft.EntityFrameworkCore.Design;
+
+namespace Noskito.Database
 {
-    public class ContextFactory
+    public class DbContextFactory
     {
         public NoskitoContext CreateContext()
         {
-            return new NoskitoContext();
+            return new();
         }
     }
 }
