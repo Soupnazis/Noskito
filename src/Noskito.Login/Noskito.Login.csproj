@@ -7,6 +7,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Noskito.Common\Noskito.Common.csproj" />
+      <ProjectReference Include="..\Noskito.Communication\Noskito.Communication.csproj" />
       <ProjectReference Include="..\Noskito.Database\Noskito.Database.csproj" />
       <ProjectReference Include="..\Noskito.Login.Abstraction\Noskito.Login.Abstraction.csproj" />
       <ProjectReference Include="..\Noskito.Login.Processor\Noskito.Login.Processor.csproj" />

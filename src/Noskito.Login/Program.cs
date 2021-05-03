@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -16,22 +17,14 @@ namespace Noskito.Login
         public static async Task Main(string[] args)
         {
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureServices(x =>
-                {
-                    x.AddLogger();
-                    x.AddPacketFactory();
-                    x.AddPacketProcessing();
-                    
-                    x.AddDatabase();
-                    
-                    x.AddLoginServer();
-
-                    x.AddHostedService<LoginService>();
-                })
                 .ConfigureLogging(x =>
                 {
                     x.ClearProviders();
                     x.AddFilter("Microsoft", LogLevel.Warning);
+                })
+                .ConfigureWebHostDefaults(x =>
+                {
+                    x.UseStartup<Startup>();
                 })
                 .UseConsoleLifetime()
                 .Build();

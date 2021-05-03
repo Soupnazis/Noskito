@@ -6,8 +6,11 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Noskito.Communication.Abstraction\Noskito.Communication.Abstraction.csproj" />
-      <ProjectReference Include="..\Noskito.Database.Abstraction\Noskito.Database.Abstraction.csproj" />
-      <ProjectReference Include="..\Noskito.Login.Abstraction\Noskito.Login.Abstraction.csproj" />
+      <ProjectReference Include="..\Noskito.Communication.Rpc\Noskito.Communication.Rpc.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0-preview.3.21201.4" />
     </ItemGroup>
 
 </Project>
