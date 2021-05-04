@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DotNetty.Transport.Channels;
 using Noskito.Common.Logging;
+using Noskito.Database.Abstraction.Entity;
 using Noskito.World.Abstraction.Network;
 using Noskito.World.Packet.Client;
 using Noskito.World.Packet.Server;
@@ -26,7 +27,8 @@ namespace Noskito.World.Network
 
         public Guid Id { get; }
         public int EncryptionKey { get; set; }
-        public int LastPacketId { get; set; }
+        public string Username { get; set; }
+        public Account Account { get; set; }
 
         public Task SendPacket<T>(T packet) where T : SPacket
         {
@@ -36,6 +38,17 @@ namespace Noskito.World.Network
         public Task Disconnect()
         {
             return channel.DisconnectAsync();
+        }
+
+        public Task Process<T>(T packet) where T : CPacket
+        {
+            IPacketProcessor processor = processorManager.GetPacketProcessor(typeof(T));
+            if (processor == null)
+            {
+                return Task.CompletedTask;
+            }
+
+            return processor.ProcessPacket(this, packet);
         }
 
         public override async void ChannelRead(IChannelHandlerContext context, object message)
@@ -55,7 +68,7 @@ namespace Noskito.World.Network
 
             try
             {
-                await processor.ProcessPacket(this, packet);
+                await Process(packet);
             }
             catch (Exception e)
             {

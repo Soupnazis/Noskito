@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Noskito.Database.Abstraction\Noskito.Database.Abstraction.csproj" />
+      <ProjectReference Include="..\Noskito.Enum\Noskito.Enum.csproj" />
     </ItemGroup>
 
 </Project>

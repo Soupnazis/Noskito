@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Noskito.Common.Extension;
 using Noskito.Communication.Extension;
+using Noskito.Database.Extension;
 using Noskito.World.Extension;
 using Noskito.World.Packet.Extension;
 using Noskito.World.Processor.Extension;
@@ -17,6 +18,8 @@ namespace Noskito.World
             services.AddLogger();
             services.AddPacketFactory();
             services.AddPacketProcessing();
+
+            services.AddDatabase();
 
             services.AddServerService();
             

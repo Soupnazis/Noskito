@@ -26,6 +26,7 @@ namespace Noskito.Database.Repository
 
                 return new Account
                 {
+                    Id = entity.Id,
                     Username = entity.Username,
                     Password = entity.Password
                 };

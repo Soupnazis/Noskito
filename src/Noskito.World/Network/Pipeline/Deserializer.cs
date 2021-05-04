@@ -27,7 +27,6 @@ namespace Noskito.World.Network.Pipeline
             }
             
 #if(DEBUG)
-            logger.Debug($"{message}");
             logger.Debug($"In: {ObjectDumper.Dump(packet)}");
 #endif
             

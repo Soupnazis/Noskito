@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Noskito.Database.Entity
 {
-    [Table("account")]
+    [Table("accounts")]
     public class DbAccount
     {
         [Key]
@@ -15,5 +16,7 @@ namespace Noskito.Database.Entity
         
         [Required]
         public string Password { get; set; }
+        
+        public virtual ICollection<DbCharacter> Characters { get; set; }
     }
 }
