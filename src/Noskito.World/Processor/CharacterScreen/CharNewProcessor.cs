@@ -16,24 +16,24 @@ namespace Noskito.World.Processor.CharacterScreen
             this.characterRepository = characterRepository;
         }
 
-        protected override async Task Process(WorldSession client, CharNew packet)
+        protected override async Task Process(WorldSession session, CharNew packet)
         {
-            if (client.Account == null)
+            if (session.Account == null)
             {
                 return;
             }
             
-            var slotTaken = await characterRepository.IsSlotTaken(client.Account.Id, packet.Slot);
+            var slotTaken = await characterRepository.IsSlotTaken(session.Account.Id, packet.Slot);
             if (slotTaken)
             {
-                await client.Disconnect();
+                await session.Disconnect();
                 return;
             }
             
             var nameTaken = await characterRepository.IsNameTaken(packet.Name);
             if (nameTaken)
             {
-                await client.Disconnect();
+                await session.Disconnect();
                 return;
             }
 
@@ -41,20 +41,20 @@ namespace Noskito.World.Processor.CharacterScreen
             {
                 Name = packet.Name,
                 Slot = packet.Slot,
-                AccountId = client.Account.Id,
+                AccountId = session.Account.Id,
                 Gender = packet.Gender,
                 HairColor = packet.HairColor,
                 HairStyle = packet.HairStyle,
             });
 
-            await client.SendPacket(new Success());
+            await session.SendPacket(new Success());
             
-            IEnumerable<CharacterDTO> characters = await characterRepository.FindAll(client.Account.Id);
+            IEnumerable<CharacterDTO> characters = await characterRepository.FindAll(session.Account.Id);
 
-            await client.SendPacket(new CListStart());
+            await session.SendPacket(new CListStart());
             foreach (var character in characters)
             {
-                await client.SendPacket(new CList
+                await session.SendPacket(new CList
                 {
                     Name = character.Name,
                     Slot = character.Slot,
@@ -67,7 +67,7 @@ namespace Noskito.World.Processor.CharacterScreen
                     Rename = false
                 });
             }
-            await client.SendPacket(new CListEnd());
+            await session.SendPacket(new CListEnd());
         }
     }
 }

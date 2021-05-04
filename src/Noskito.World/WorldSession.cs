@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Noskito.Database.Dto;
 using Noskito.World.Network;
 using Noskito.World.Packet.Server;
@@ -7,24 +8,31 @@ namespace Noskito.World
 {
     public class WorldSession
     {
-        public string Username { get; set; }
+        public Guid Id { get; } = Guid.NewGuid();
+        
         public AccountDTO Account { get; set; }
+        
+        public int Key
+        {
+            get => client.EncryptionKey;
+            set => client.EncryptionKey = value;
+        }
 
-        public NetworkClient Client { get; }
+        private readonly NetworkClient client;
 
         public WorldSession(NetworkClient client)
         {
-            Client = client;
+            this.client = client;
         }
         
         public Task SendPacket<T>(T packet) where T : SPacket
         {
-            return Client.SendPacket(packet);
+            return client.SendPacket(packet);
         }
 
         public Task Disconnect()
         {
-            return Client.Disconnect();
+            return client.Disconnect();
         }
     }
 }

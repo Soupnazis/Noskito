@@ -16,6 +16,8 @@ namespace Noskito.World.Processor
         private readonly AccountRepository accountRepository;
         private readonly CharacterRepository characterRepository;
 
+        private readonly Dictionary<Guid, string> storedUsernames = new();
+        
         public UnresolvedProcessor(ILogger logger, AccountRepository accountRepository, CharacterRepository characterRepository)
         {
             this.logger = logger;
@@ -25,21 +27,22 @@ namespace Noskito.World.Processor
 
         protected override async Task Process(WorldSession session, UnresolvedPacket packet)
         {
-            if (session.Client.EncryptionKey == 0)
+            if (session.Key == 0)
             {
-                session.Client.EncryptionKey = int.Parse(packet.Header);
+                session.Key = int.Parse(packet.Header);
                 return;
             }
 
-            if (session.Username == null)
+            string username = storedUsernames.GetValueOrDefault(session.Id);
+            if (username == null)
             {
-                session.Username = packet.Header;
+                storedUsernames[session.Id] = packet.Header;
                 return;
             }
 
             if (session.Account == null)
             {
-                AccountDTO accountDto = await accountRepository.GetAccountByName(session.Username);
+                AccountDTO accountDto = await accountRepository.GetAccountByName(username);
                 if (accountDto == null)
                 {
                     logger.Debug("Can't found account");
@@ -53,9 +56,11 @@ namespace Noskito.World.Processor
                     await session.Disconnect();
                     return;
                 }
+                
+                storedUsernames.Remove(session.Id);
 
                 session.Account = accountDto;
-                
+
                 IEnumerable<CharacterDTO> characters = await characterRepository.FindAll(accountDto.Id);
 
                 await session.SendPacket(new CListStart());
