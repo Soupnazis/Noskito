@@ -6,7 +6,7 @@ namespace Noskito.Cluster.Manager
 {
     public class ServerManager
     {
-        public bool IsMaintenanceMode { get; set; }
+        public bool IsMaintenanceMode { get; set; } = false;
 
         private readonly List<WorldServer> servers = new();
         

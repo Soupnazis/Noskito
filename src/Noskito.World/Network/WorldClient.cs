@@ -2,20 +2,20 @@
 using System.Threading.Tasks;
 using DotNetty.Transport.Channels;
 using Noskito.Common.Logging;
-using Noskito.Login.Abstraction.Network;
-using Noskito.Login.Packet.Client;
-using Noskito.Login.Packet.Server;
-using Noskito.Login.Processor;
+using Noskito.World.Abstraction.Network;
+using Noskito.World.Packet.Client;
+using Noskito.World.Packet.Server;
+using Noskito.World.Processor;
 
-namespace Noskito.Login.Network
+namespace Noskito.World.Network
 {
-    public sealed class LoginClient : ChannelHandlerAdapter, ILoginClient
+    public class WorldClient : ChannelHandlerAdapter, IWorldClient
     {
         private readonly ILogger logger;
         private readonly IChannel channel;
         private readonly ProcessorManager processorManager;
 
-        public LoginClient(ILogger logger, IChannel channel, ProcessorManager processorManager)
+        public WorldClient(ILogger logger, IChannel channel, ProcessorManager processorManager)
         {
             Id = Guid.NewGuid();
             
@@ -25,7 +25,9 @@ namespace Noskito.Login.Network
         }
 
         public Guid Id { get; }
-        
+        public int EncryptionKey { get; set; }
+        public int LastPacketId { get; set; }
+
         public Task SendPacket<T>(T packet) where T : SPacket
         {
             return channel.WriteAndFlushAsync(packet);

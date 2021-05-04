@@ -2,7 +2,7 @@
 using DotNetty.Codecs;
 using DotNetty.Transport.Channels;
 using Noskito.Common.Logging;
-using Noskito.Packet;
+using Noskito.Login.Packet;
 
 namespace Noskito.Login.Network.Pipeline
 {

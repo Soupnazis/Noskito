@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Noskito.Packet.Server;
+using Noskito.Login.Packet.Server;
 
 namespace Noskito.Login.Abstraction.Network
 {
     public interface ILoginClient
     {
         Guid Id { get; }
-        Task SendPacket(ServerPacket packet);
+        Task SendPacket<T>(T packet) where T : SPacket;
         Task Disconnect();
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Noskito.Packet.Server.Authentication
+namespace Noskito.Login.Packet.Server.Authentication
 {
-    public class NsTeSt : ServerPacket
+    public class NsTeST : SPacket
     {
         public byte RegionId { get; init; }
         public string Account { get; init; }
-        public int SessionId { get; init; }
+        public int EncryptionKey { get; init; }
         public List<Server> Servers { get; init; } = new();
         
         public class Server
@@ -20,15 +20,17 @@ namespace Noskito.Packet.Server.Authentication
         }
     }
 
-    public class NsTeStCreator : ServerPacketCreator<NsTeSt>
+    public class NsTeSTCreator : SPacketCreator<NsTeST>
     {
-        protected override string Create(NsTeSt source)
+        protected override string CreatePacket(NsTeST source)
         {
-            var packet = $"NsTeST {source.RegionId} {source.Account} {source.SessionId} ";
+            var packet = $"NsTeST {source.RegionId} {source.Account} {source.EncryptionKey} ";
             foreach (var server in source.Servers)
             {
-                packet += $"{server.Host}:{server.Port}:{server.Color}:{server.Count}.{server.Id}.{server.Name}";
+                packet += $"{server.Host}:{server.Port}:{server.Color}:{server.Id}.{server.Count}.{server.Name} ";
             }
+
+            packet += "-1:-1:-1:10000.10000.1";
 
             return packet;
         }

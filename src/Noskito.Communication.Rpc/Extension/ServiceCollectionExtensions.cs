@@ -9,7 +9,7 @@ namespace Noskito.Communication.Rpc.Extension
     {
         public static void AddRpcServerService(this IServiceCollection services)
         {
-            var channel = GrpcChannel.ForAddress("http://localhost:10000");
+            var channel = GrpcChannel.ForAddress("http://localhost:15000");
             var service = channel.CreateGrpcService<IRpcServerService>();
 
             services.AddSingleton(service);

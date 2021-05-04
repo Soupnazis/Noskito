@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Noskito.Login.Abstraction.Network;
-using Noskito.Login.Packet.Client;
+using Noskito.World.Abstraction.Network;
+using Noskito.World.Packet.Client;
 
-namespace Noskito.Login.Processor
+namespace Noskito.World.Processor
 {
     public interface IPacketProcessor
     {
         Type PacketType { get; }
-        Task ProcessPacket(ILoginClient client, CPacket packet);
+        Task ProcessPacket(IWorldClient client, CPacket packet);
     }
     
     public abstract class PacketProcessor<T> : IPacketProcessor where T : CPacket
     {
         public Type PacketType { get; } = typeof(T);
         
-        public Task ProcessPacket(ILoginClient client, CPacket packet)
+        public Task ProcessPacket(IWorldClient client, CPacket packet)
         {
             return Process(client, (T) packet);
         }
 
-        protected abstract Task Process(ILoginClient client, T packet);
+        protected abstract Task Process(IWorldClient client, T packet);
     }
 }

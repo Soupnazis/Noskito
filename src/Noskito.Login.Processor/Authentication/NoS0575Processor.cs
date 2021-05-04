@@ -7,9 +7,9 @@ using Noskito.Communication.Abstraction.Server;
 using Noskito.Database.Abstraction.Repository;
 using Noskito.Enum.Authentication;
 using Noskito.Login.Abstraction.Network;
+using Noskito.Login.Packet.Client.Authentication;
+using Noskito.Login.Packet.Server.Authentication;
 using Noskito.Login.Processor.Extension;
-using Noskito.Packet.Client.Authentication;
-using Noskito.Packet.Server.Authentication;
 
 namespace Noskito.Login.Processor.Authentication
 {
@@ -61,14 +61,14 @@ namespace Noskito.Login.Processor.Authentication
 
             var grouped = worlds.GroupBy(x => x.Name).ToArray();
             
-            var convertedServers = new List<NsTeSt.Server>();
+            var convertedServers = new List<NsTeST.Server>();
             for (var i = 0; i < grouped.Length; i++)
             {
                 var servers = grouped[0].ToArray();
                 for (var j = 0; j < servers.Length; j++)
                 {
                     var server = servers[j];
-                    convertedServers.Add(new NsTeSt.Server
+                    convertedServers.Add(new NsTeST.Server
                     {
                         Host = server.Host,
                         Port = server.Port,
@@ -79,10 +79,10 @@ namespace Noskito.Login.Processor.Authentication
                     });
                 }
             }
-            await client.SendPacket(new NsTeSt
+            await client.SendPacket(new NsTeST
             {
                 RegionId = 0,
-                SessionId = 1,
+                EncryptionKey = 15000,
                 Account = account.Username,
                 Servers = convertedServers
             });

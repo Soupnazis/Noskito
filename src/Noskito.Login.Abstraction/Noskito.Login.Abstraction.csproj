@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Noskito.Login.Packet\Noskito.Login.Packet.csproj" />
       <ProjectReference Include="..\Noskito.Packet\Noskito.Packet.csproj" />
     </ItemGroup>
 

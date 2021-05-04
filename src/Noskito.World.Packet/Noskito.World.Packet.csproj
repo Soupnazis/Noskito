@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Noskito.Packet\Noskito.Packet.csproj" />
-      <ProjectReference Include="..\Noskito.World.Packet\Noskito.World.Packet.csproj" />
+      <ProjectReference Include="..\Noskito.Common\Noskito.Common.csproj" />
+      <ProjectReference Include="..\Noskito.Enum\Noskito.Enum.csproj" />
     </ItemGroup>
 
 </Project>

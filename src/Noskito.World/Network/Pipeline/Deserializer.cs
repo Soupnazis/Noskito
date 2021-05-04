@@ -2,33 +2,33 @@
 using DotNetty.Codecs;
 using DotNetty.Transport.Channels;
 using Noskito.Common.Logging;
-using Noskito.Login.Packet;
-using Noskito.Login.Packet.Server;
+using Noskito.World.Packet;
 
-namespace Noskito.Login.Network.Pipeline
+namespace Noskito.World.Network.Pipeline
 {
-    public class Serializer : MessageToMessageEncoder<SPacket>
+    public class Deserializer : MessageToMessageDecoder<string>
     {
         private readonly ILogger logger;
         private readonly PacketFactory packetFactory;
 
-        public Serializer(ILogger logger, PacketFactory packetFactory)
+        public Deserializer(ILogger logger, PacketFactory packetFactory)
         {
             this.logger = logger;
             this.packetFactory = packetFactory;
         }
 
-        protected override void Encode(IChannelHandlerContext context, SPacket message, List<object> output)
+        protected override void Decode(IChannelHandlerContext context, string message, List<object> output)
         {
             var packet = packetFactory.CreatePacket(message);
-            if (string.IsNullOrEmpty(packet))
+            if (packet == null)
             {
-                logger.Debug("Empty packet, skipping it");
+                logger.Debug("Failed to create typed packet, skipping it");
                 return;
             }
-
+            
 #if(DEBUG)
-            logger.Debug($"Out: {ObjectDumper.Dump(message)}");
+            logger.Debug($"{message}");
+            logger.Debug($"In: {ObjectDumper.Dump(packet)}");
 #endif
             
             output.Add(packet);

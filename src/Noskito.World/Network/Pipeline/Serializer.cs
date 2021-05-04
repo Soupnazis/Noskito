@@ -2,10 +2,10 @@
 using DotNetty.Codecs;
 using DotNetty.Transport.Channels;
 using Noskito.Common.Logging;
-using Noskito.Login.Packet;
-using Noskito.Login.Packet.Server;
+using Noskito.World.Packet;
+using Noskito.World.Packet.Server;
 
-namespace Noskito.Login.Network.Pipeline
+namespace Noskito.World.Network.Pipeline
 {
     public class Serializer : MessageToMessageEncoder<SPacket>
     {

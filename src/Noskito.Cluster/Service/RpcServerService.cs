@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Noskito.Cluster.Manager;
+using Noskito.Common.Logging;
 using Noskito.Communication.Abstraction.Server;
 using Noskito.Communication.Rpc.Common.Request;
 using Noskito.Communication.Rpc.Common.Response;
@@ -13,10 +14,12 @@ namespace Noskito.Cluster.Service
 {
     public class RpcServerService : IRpcServerService
     {
+        private readonly ILogger logger;
         private readonly ServerManager serverManager;
 
-        public RpcServerService(ServerManager serverManager)
+        public RpcServerService(ILogger logger, ServerManager serverManager)
         {
+            this.logger = logger;
             this.serverManager = serverManager;
         }
 
@@ -32,7 +35,7 @@ namespace Noskito.Cluster.Service
         {
             return ValueTask.FromResult(new BoolResponse
             {
-                Value = false
+                Value = serverManager.IsMaintenanceMode
             });
         }
 

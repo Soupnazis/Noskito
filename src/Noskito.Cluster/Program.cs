@@ -25,7 +25,7 @@ namespace Noskito.Cluster
                 {
                     x.UseKestrel(s =>
                     {
-                        s.ListenLocalhost(10000, options => options.Protocols = HttpProtocols.Http2);
+                        s.ListenLocalhost(15000, options => options.Protocols = HttpProtocols.Http2);
                     });
                     x.UseStartup<Startup>();
                 })

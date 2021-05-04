@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Noskito.Enum.Authentication;
 using Noskito.Login.Abstraction.Network;
-using Noskito.Packet.Server.Authentication;
+using Noskito.Login.Packet.Server.Authentication;
 
 namespace Noskito.Login.Processor.Extension
 {

@@ -4,12 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Noskito.Common.Extension;
 using Noskito.Communication.Extension;
-using Noskito.Database.Extension;
-using Noskito.Login.Extension;
-using Noskito.Login.Packet.Extension;
-using Noskito.Login.Processor.Extension;
+using Noskito.World.Extension;
+using Noskito.World.Packet.Extension;
+using Noskito.World.Processor.Extension;
 
-namespace Noskito.Login
+namespace Noskito.World
 {
     public class Startup
     {
@@ -18,14 +17,12 @@ namespace Noskito.Login
             services.AddLogger();
             services.AddPacketFactory();
             services.AddPacketProcessing();
-                    
-            services.AddDatabase();
-                    
+
             services.AddServerService();
             
-            services.AddLoginServer();
+            services.AddWorldServer();
 
-            services.AddHostedService<LoginService>();
+            services.AddHostedService<WorldService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
