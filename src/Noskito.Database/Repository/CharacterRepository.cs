@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Noskito.Database.Abstraction.Entity;
-using Noskito.Database.Abstraction.Repository;
+using Noskito.Database.Dto;
 using Noskito.Database.Entity;
 
 namespace Noskito.Database.Repository
 {
-    public class CharacterRepository : ICharacterRepository
+    public class CharacterRepository
     {
         private readonly DbContextFactory contextFactory;
 
@@ -17,12 +16,12 @@ namespace Noskito.Database.Repository
             this.contextFactory = contextFactory;
         }
 
-        public async Task<IEnumerable<Character>> FindAll(long accountId)
+        public async Task<IEnumerable<CharacterDTO>> FindAll(long accountId)
         {
             using (var context = contextFactory.CreateContext())
             {
                 IEnumerable<DbCharacter> entities = await context.Characters.Where(x => x.AccountId == accountId).ToListAsync();
-                return entities.Select(x => new Character
+                return entities.Select(x => new CharacterDTO
                 {
                     Id = x.Id,
                     AccountId = x.AccountId,
@@ -52,7 +51,7 @@ namespace Noskito.Database.Repository
             }
         }
 
-        public async Task Create(Character character)
+        public async Task Create(CharacterDTO character)
         {
             using (var context = contextFactory.CreateContext())
             {

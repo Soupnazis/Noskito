@@ -1,21 +1,19 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Noskito.Common.Logging;
-using Noskito.Communication.Abstraction.Server;
-using Noskito.Login.Abstraction;
-using Noskito.Login.Abstraction.Network;
+using Noskito.Communication.Server;
+using Noskito.Login.Network;
 
 namespace Noskito.Login
 {
     public class LoginService : IHostedService
     {
         private readonly ILogger logger;
-        private readonly ILoginServer server;
-        private readonly IServerService serverService;
+        private readonly LoginServer server;
+        private readonly ServerService serverService;
 
-        public LoginService(ILogger logger, ILoginServer server, IServerService serverService)
+        public LoginService(ILogger logger, LoginServer server, ServerService serverService)
         {
             this.logger = logger;
             this.server = server;

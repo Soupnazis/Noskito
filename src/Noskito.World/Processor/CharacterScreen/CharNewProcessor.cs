@@ -1,9 +1,7 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Noskito.Database.Abstraction.Entity;
-using Noskito.Database.Abstraction.Repository;
-using Noskito.Enum.Character;
-using Noskito.World.Abstraction.Network;
+using Noskito.Database.Dto;
+using Noskito.Database.Repository;
 using Noskito.World.Packet.Client.CharacterScreen;
 using Noskito.World.Packet.Server.CharacterScreen;
 
@@ -11,14 +9,14 @@ namespace Noskito.World.Processor.CharacterScreen
 {
     public class CharNewProcessor : PacketProcessor<CharNew>
     {
-        private readonly ICharacterRepository characterRepository;
+        private readonly CharacterRepository characterRepository;
 
-        public CharNewProcessor(ICharacterRepository characterRepository)
+        public CharNewProcessor(CharacterRepository characterRepository)
         {
             this.characterRepository = characterRepository;
         }
 
-        protected override async Task Process(IWorldClient client, CharNew packet)
+        protected override async Task Process(WorldSession client, CharNew packet)
         {
             if (client.Account == null)
             {
@@ -39,7 +37,7 @@ namespace Noskito.World.Processor.CharacterScreen
                 return;
             }
 
-            await characterRepository.Create(new Character
+            await characterRepository.Create(new CharacterDTO
             {
                 Name = packet.Name,
                 Slot = packet.Slot,
@@ -50,7 +48,26 @@ namespace Noskito.World.Processor.CharacterScreen
             });
 
             await client.SendPacket(new Success());
-            await client.Process(new EntryPoint());
+            
+            IEnumerable<CharacterDTO> characters = await characterRepository.FindAll(client.Account.Id);
+
+            await client.SendPacket(new CListStart());
+            foreach (var character in characters)
+            {
+                await client.SendPacket(new CList
+                {
+                    Name = character.Name,
+                    Slot = character.Slot,
+                    HairColor = character.HairColor,
+                    HairStyle = character.HairStyle,
+                    Level = character.Level,
+                    Gender = character.Gender,
+                    HeroLevel = 0,
+                    JobLevel = 0,
+                    Rename = false
+                });
+            }
+            await client.SendPacket(new CListEnd());
         }
     }
 }

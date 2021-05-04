@@ -1,8 +1,8 @@
 ﻿using Noskito.Enum.Character;
 
-namespace Noskito.Database.Abstraction.Entity
+namespace Noskito.Database.Dto
 {
-    public class Character
+    public class CharacterDTO
     {
         public long Id { get; init; }
         public long AccountId { get; init; }

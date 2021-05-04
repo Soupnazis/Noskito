@@ -5,7 +5,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Noskito.Communication.Abstraction\Noskito.Communication.Abstraction.csproj" />
       <ProjectReference Include="..\Noskito.Communication.Rpc\Noskito.Communication.Rpc.csproj" />
     </ItemGroup>
 

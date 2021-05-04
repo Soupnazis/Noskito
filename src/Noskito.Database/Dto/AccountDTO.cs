@@ -1,6 +1,6 @@
-﻿namespace Noskito.Database.Abstraction.Entity
+﻿namespace Noskito.Database.Dto
 {
-    public record Account
+    public record AccountDTO
     {
         public long Id { get; init; }
         public string Username { get; init; }

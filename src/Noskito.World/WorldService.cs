@@ -3,17 +3,18 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Noskito.Common.Logging;
 using Noskito.Communication.Abstraction.Server;
-using Noskito.World.Abstraction.Network;
+using Noskito.Communication.Server;
+using Noskito.World.Network;
 
 namespace Noskito.World
 {
     public class WorldService : IHostedService
     {
         private readonly ILogger logger;
-        private readonly IWorldServer server;
-        private readonly IServerService serverService;
+        private readonly NetworkServer server;
+        private readonly ServerService serverService;
 
-        public WorldService(ILogger logger, IWorldServer server, IServerService serverService)
+        public WorldService(ILogger logger, NetworkServer server, ServerService serverService)
         {
             this.logger = logger;
             this.server = server;

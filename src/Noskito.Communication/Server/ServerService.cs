@@ -10,7 +10,7 @@ using Noskito.Communication.Rpc.Server.Request;
 
 namespace Noskito.Communication.Server
 {
-    public class ServerService : IServerService
+    public class ServerService
     {
         private readonly IRpcServerService rpc;
 

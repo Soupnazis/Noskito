@@ -4,14 +4,13 @@ using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
 using Noskito.Common.Logging;
-using Noskito.Login.Abstraction.Network;
 using Noskito.Login.Network.Pipeline;
 using Noskito.Login.Packet;
 using Noskito.Login.Processor;
 
 namespace Noskito.Login.Network
 {
-    public sealed class LoginServer : ILoginServer
+    public sealed class LoginServer
     {
         private readonly ILogger logger;
         private readonly ServerBootstrap bootstrap;
@@ -34,7 +33,19 @@ namespace Noskito.Login.Network
                 {
                     var pipeline = x.Pipeline;
 
-                    var client = new LoginClient(logger, x, processorManager);
+                    var client = new LoginClient(logger, x);
+                    var session = new LoginSession(client);
+
+                    client.PacketReceived += packet =>
+                    {
+                        var processor = processorManager.GetPacketProcessor(packet.GetType());
+                        if (processor == null)
+                        {
+                            return Task.CompletedTask;
+                        }
+
+                        return processor.ProcessPacket(session, packet);
+                    };
 
                     pipeline.AddLast("decoder", new Decoder(logger));
                     pipeline.AddLast("deserializer", new Deserializer(logger, packetFactory));
@@ -44,15 +55,8 @@ namespace Noskito.Login.Network
                 }));
         }
 
-        public bool IsOnline => channel?.Active == true;
-        
         public async Task Start(int port)
         {
-            if (IsOnline)
-            {
-                throw new InvalidOperationException("Can't start already started server");
-            }
-            
             channel = await bootstrap.BindAsync(port);
             
             logger.Debug($"Server successfully started on port {port}");
@@ -60,11 +64,6 @@ namespace Noskito.Login.Network
 
         public async Task Stop()
         {
-            if (!IsOnline)
-            {
-                throw new InvalidOperationException("Can't stop a not started server");
-            }
-            
             await channel.CloseAsync();
 
             await bossGroup.ShutdownGracefullyAsync();

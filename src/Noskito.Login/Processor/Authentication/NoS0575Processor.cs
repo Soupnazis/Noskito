@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Noskito.Common.Logging;
-using Noskito.Communication.Abstraction.Server;
-using Noskito.Database.Abstraction.Repository;
+using Noskito.Communication.Server;
+using Noskito.Database.Repository;
 using Noskito.Enum.Authentication;
-using Noskito.Login.Abstraction.Network;
 using Noskito.Login.Packet.Client.Authentication;
 using Noskito.Login.Packet.Server.Authentication;
 using Noskito.Login.Processor.Extension;
@@ -16,17 +15,17 @@ namespace Noskito.Login.Processor.Authentication
     public class NoS0575Processor : PacketProcessor<NoS0575>
     {
         private readonly ILogger logger;
-        private readonly IAccountRepository accountRepository;
-        private readonly IServerService serverService;
+        private readonly AccountRepository accountRepository;
+        private readonly ServerService serverService;
 
-        public NoS0575Processor(ILogger logger, IAccountRepository accountRepository, IServerService serverService)
+        public NoS0575Processor(ILogger logger, AccountRepository accountRepository, ServerService serverService)
         {
             this.logger = logger;
             this.accountRepository = accountRepository;
             this.serverService = serverService;
         }
 
-        protected override async Task Process(ILoginClient client, NoS0575 packet)
+        protected override async Task Process(LoginSession client, NoS0575 packet)
         {
             var account = await accountRepository.GetAccountByName(packet.Username);
             if (account == null)

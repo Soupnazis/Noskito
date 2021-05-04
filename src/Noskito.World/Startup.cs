@@ -23,7 +23,7 @@ namespace Noskito.World
 
             services.AddServerService();
             
-            services.AddWorldServer();
+            services.AddNetworkServer();
 
             services.AddHostedService<WorldService>();
         }

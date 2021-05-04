@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Noskito.Database.Abstraction.Entity;
-using Noskito.Database.Abstraction.Repository;
+using Noskito.Database.Dto;
 
 namespace Noskito.Database.Repository
 {
-    public class AccountRepository : IAccountRepository
+    public class AccountRepository
     {
         private readonly DbContextFactory contextFactory;
 
@@ -14,7 +13,7 @@ namespace Noskito.Database.Repository
             this.contextFactory = contextFactory;
         }
 
-        public async Task<Account> GetAccountByName(string name)
+        public async Task<AccountDTO> GetAccountByName(string name)
         {
             using (var context = contextFactory.CreateContext())
             {
@@ -24,7 +23,7 @@ namespace Noskito.Database.Repository
                     return default;
                 }
 
-                return new Account
+                return new AccountDTO
                 {
                     Id = entity.Id,
                     Username = entity.Username,

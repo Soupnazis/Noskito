@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using DotNetty.Buffers;
 using DotNetty.Codecs;
 using DotNetty.Transport.Channels;
 using Noskito.Common.Logging;
-using Noskito.World.Abstraction.Network;
 
 namespace Noskito.World.Network.Pipeline
 {
     public class Decoder : ByteToMessageDecoder
     {
         private readonly ILogger logger;
-        private readonly IWorldClient client;
+        private readonly NetworkClient client;
 
-        public Decoder(ILogger logger, IWorldClient client)
+        public Decoder(ILogger logger, NetworkClient client)
         {
             this.logger = logger;
             this.client = client;

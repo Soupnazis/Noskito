@@ -4,14 +4,13 @@ using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
 using Noskito.Common.Logging;
-using Noskito.World.Abstraction.Network;
 using Noskito.World.Network.Pipeline;
 using Noskito.World.Packet;
 using Noskito.World.Processor;
 
 namespace Noskito.World.Network
 {
-    public class WorldServer : IWorldServer
+    public class NetworkServer
     {
         private readonly ILogger logger;
         private readonly ServerBootstrap bootstrap;
@@ -19,7 +18,7 @@ namespace Noskito.World.Network
 
         private IChannel channel;
         
-        public WorldServer(ILogger logger, PacketFactory packetFactory, ProcessorManager processorManager)
+        public NetworkServer(ILogger logger, PacketFactory packetFactory, ProcessorManager processorManager)
         {
             this.logger = logger;
 
@@ -34,8 +33,20 @@ namespace Noskito.World.Network
                 {
                     var pipeline = x.Pipeline;
 
-                    var client = new WorldClient(logger, x, processorManager);
+                    var client = new NetworkClient(logger, x);
+                    var session = new WorldSession(client);
+                    
+                    client.PacketReceived += packet =>
+                    {
+                        var processor = processorManager.GetPacketProcessor(packet.GetType());
+                        if (processor == null)
+                        {
+                            return Task.CompletedTask;
+                        }
 
+                        return processor.ProcessPacket(session, packet);
+                    };
+                    
                     pipeline.AddLast("decoder", new Decoder(logger, client));
                     pipeline.AddLast("deserializer", new Deserializer(logger, packetFactory));
                     pipeline.AddLast("client", client);
@@ -44,15 +55,8 @@ namespace Noskito.World.Network
                 }));
         }
 
-        public bool IsOnline => channel?.Active == true;
-        
         public async Task Start(int port)
         {
-            if (IsOnline)
-            {
-                throw new InvalidOperationException("Can't start already started server");
-            }
-            
             channel = await bootstrap.BindAsync(port);
             
             logger.Debug($"Server successfully started on port {port}");
@@ -60,11 +64,6 @@ namespace Noskito.World.Network
 
         public async Task Stop()
         {
-            if (!IsOnline)
-            {
-                throw new InvalidOperationException("Can't stop a not started server");
-            }
-            
             await channel.CloseAsync();
 
             await bossGroup.ShutdownGracefullyAsync();

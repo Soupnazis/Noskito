@@ -1,15 +1,14 @@
 ﻿using System.Threading.Tasks;
 using Noskito.Enum.Authentication;
-using Noskito.Login.Abstraction.Network;
 using Noskito.Login.Packet.Server.Authentication;
 
 namespace Noskito.Login.Processor.Extension
 {
     public static class LoginClientExtensions
     {
-        public static Task SendLoginFail(this ILoginClient client, LoginFailReason reason)
+        public static Task SendLoginFail(this LoginSession session, LoginFailReason reason)
         {
-            return client.SendPacket(new Failc
+            return session.SendPacket(new Failc
             {
                 Reason = reason
             });

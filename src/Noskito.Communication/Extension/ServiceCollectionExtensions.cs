@@ -10,7 +10,7 @@ namespace Noskito.Communication.Extension
         public static void AddServerService(this IServiceCollection services)
         {
             services.AddRpcServerService();
-            services.AddTransient<IServerService, ServerService>();
+            services.AddTransient<ServerService>();
         }
     }
 }

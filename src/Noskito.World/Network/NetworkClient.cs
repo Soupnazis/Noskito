@@ -2,24 +2,26 @@
 using System.Threading.Tasks;
 using DotNetty.Transport.Channels;
 using Noskito.Common.Logging;
-using Noskito.Login.Packet.Client;
-using Noskito.Login.Packet.Server;
-using Noskito.Login.Processor;
+using Noskito.World.Packet.Client;
+using Noskito.World.Packet.Server;
 
-namespace Noskito.Login.Network
+namespace Noskito.World.Network
 {
-    public sealed class LoginClient : ChannelHandlerAdapter
+    public class NetworkClient : ChannelHandlerAdapter
     {
         private readonly ILogger logger;
         private readonly IChannel channel;
 
         public event Func<CPacket, Task> PacketReceived; 
         
-        public LoginClient(ILogger logger, IChannel channel)
+        public NetworkClient(ILogger logger, IChannel channel)
         {
             this.logger = logger;
             this.channel = channel;
         }
+        
+        public int EncryptionKey { get; set; }
+        public bool IsEncrypted => EncryptionKey != 0;
 
         public Task SendPacket<T>(T packet) where T : SPacket
         {
