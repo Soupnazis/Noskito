@@ -10,8 +10,8 @@ namespace Noskito.World.Processor.CharacterScreen
 {
     public class SelectProcessor : PacketProcessor<Select>
     {
-        private readonly MapManager mapManager;
         private readonly CharacterRepository characterRepository;
+        private readonly MapManager mapManager;
 
         public SelectProcessor(MapManager mapManager, CharacterRepository characterRepository)
         {
@@ -35,7 +35,7 @@ namespace Noskito.World.Processor.CharacterScreen
             }
 
             var map = mapManager.GetMap(character.MapId);
-            
+
             session.Character = new Character(session)
             {
                 Id = character.Id,
@@ -53,9 +53,9 @@ namespace Noskito.World.Processor.CharacterScreen
                 Hp = 1,
                 Mp = 1,
                 MaxHp = 1,
-                MaxMp = 1,
+                MaxMp = 1
             };
-            
+
             await session.SendPacket(new Ok());
         }
     }

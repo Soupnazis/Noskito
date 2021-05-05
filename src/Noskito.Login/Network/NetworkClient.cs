@@ -4,22 +4,21 @@ using DotNetty.Transport.Channels;
 using Noskito.Common.Logging;
 using Noskito.Login.Packet.Client;
 using Noskito.Login.Packet.Server;
-using Noskito.Login.Processor;
 
 namespace Noskito.Login.Network
 {
     public sealed class NetworkClient : ChannelHandlerAdapter
     {
-        private readonly ILogger logger;
         private readonly IChannel channel;
+        private readonly ILogger logger;
 
-        public event Func<CPacket, Task> PacketReceived; 
-        
         public NetworkClient(ILogger logger, IChannel channel)
         {
             this.logger = logger;
             this.channel = channel;
         }
+
+        public event Func<CPacket, Task> PacketReceived;
 
         public Task SendPacket<T>(T packet) where T : SPacket
         {
@@ -41,10 +40,7 @@ namespace Noskito.Login.Network
 
             try
             {
-                if (PacketReceived != null)
-                {
-                    await PacketReceived?.Invoke(packet);
-                }
+                if (PacketReceived != null) await PacketReceived?.Invoke(packet);
             }
             catch (Exception e)
             {

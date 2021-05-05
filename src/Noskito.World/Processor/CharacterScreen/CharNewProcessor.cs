@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Noskito.Database.Dto;
 using Noskito.Database.Repository;
@@ -20,18 +19,15 @@ namespace Noskito.World.Processor.CharacterScreen
 
         protected override async Task Process(WorldSession session, CharNew packet)
         {
-            if (session.Account is null)
-            {
-                return;
-            }
-            
+            if (session.Account is null) return;
+
             var slotTaken = await characterRepository.IsSlotTaken(session.Account.Id, packet.Slot);
             if (slotTaken)
             {
                 await session.Disconnect();
                 return;
             }
-            
+
             var nameTaken = await characterRepository.IsNameTaken(packet.Name);
             if (nameTaken)
             {
@@ -56,12 +52,11 @@ namespace Noskito.World.Processor.CharacterScreen
             });
 
             await session.SendPacket(new Success());
-            
-            IEnumerable<CharacterDTO> characters = await characterRepository.FindAll(session.Account.Id);
-            
+
+            var characters = await characterRepository.FindAll(session.Account.Id);
+
             await session.SendPacket(new CListStart());
             foreach (var character in characters)
-            {
                 await session.SendPacket(new CList
                 {
                     Name = character.Name,
@@ -73,13 +68,12 @@ namespace Noskito.World.Processor.CharacterScreen
                     HeroLevel = 0,
                     JobLevel = character.JobLevel,
                     Job = character.Job,
-                    Equipments = Enumerable.Range(0, 10).Select(x => (short?)null),
-                    Pets = Enumerable.Range(0, 24).Select(x => (short?)null),
+                    Equipments = Enumerable.Range(0, 10).Select(x => (short?) null),
+                    Pets = Enumerable.Range(0, 24).Select(x => (short?) null),
                     QuestCompletion = 1,
                     QuestPart = 1,
                     Rename = false
                 });
-            }
             await session.SendPacket(new CListEnd());
         }
     }

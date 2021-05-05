@@ -10,7 +10,7 @@
     {
         protected override NoS0575 CreatePacket(string[] parameters)
         {
-            return new NoS0575
+            return new()
             {
                 Username = parameters[1],
                 Password = parameters[2]

@@ -18,10 +18,7 @@ namespace Noskito.Login
                 })
                 .ConfigureWebHostDefaults(x =>
                 {
-                    x.UseKestrel(s =>
-                    {
-                        s.ListenAnyIP(14000, options => options.Protocols = HttpProtocols.Http2);
-                    });
+                    x.UseKestrel(s => { s.ListenAnyIP(14000, options => options.Protocols = HttpProtocols.Http2); });
                     x.UseStartup<Startup>();
                 })
                 .UseConsoleLifetime()

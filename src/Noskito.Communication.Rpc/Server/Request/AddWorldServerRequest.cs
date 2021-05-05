@@ -6,7 +6,6 @@ namespace Noskito.Communication.Rpc.Server.Request
     [ProtoContract]
     public class AddWorldServerRequest
     {
-        [ProtoMember(1)]
-        public WorldServerObject Server { get; init; }
+        [ProtoMember(1)] public WorldServerObject Server { get; init; }
     }
 }

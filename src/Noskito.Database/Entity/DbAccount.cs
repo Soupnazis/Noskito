@@ -10,13 +10,11 @@ namespace Noskito.Database.Entity
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; init; }
-        
-        [Required]
-        public string Username { get; init; }
-        
-        [Required]
-        public string Password { get; init; }
-        
+
+        [Required] public string Username { get; init; }
+
+        [Required] public string Password { get; init; }
+
         public virtual ICollection<DbCharacter> Characters { get; set; }
     }
 }

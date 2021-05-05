@@ -28,7 +28,7 @@ namespace Noskito.Login.Network.Pipeline
             }
 
             output.Add(packet);
-            
+
             logger.Debug($"Out [{message.GetType().Name}]: {packet}");
         }
     }

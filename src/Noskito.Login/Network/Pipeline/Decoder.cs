@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using DotNetty.Buffers;
 using DotNetty.Codecs;
 using DotNetty.Transport.Channels;
@@ -26,17 +25,15 @@ namespace Noskito.Login.Network.Pipeline
             }
 
             var buffer = new byte[input.ReadableBytes];
-            
+
             input.ReadBytes(buffer);
-            
+
             var packet = string.Empty;
-            foreach(var b in buffer)
-            {
-                packet += b > 14 
-                    ? Convert.ToChar(b - 0xF ^ 0xC3) 
-                    : Convert.ToChar(0x100 - (0xF - b) ^ 195);
-            }
-            
+            foreach (var b in buffer)
+                packet += b > 14
+                    ? Convert.ToChar((b - 0xF) ^ 0xC3)
+                    : Convert.ToChar((0x100 - (0xF - b)) ^ 195);
+
             output.Add(packet.Trim());
         }
     }

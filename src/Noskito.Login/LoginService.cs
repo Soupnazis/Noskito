@@ -26,9 +26,8 @@ namespace Noskito.Login
             do
             {
                 clusterOnline = await serverService.IsClusterOnline();
-            } 
-            while (!clusterOnline);
-            
+            } while (!clusterOnline);
+
             logger.Information("Starting server");
             await server.Start(10000);
         }

@@ -19,11 +19,8 @@ namespace Noskito.World.Network.Pipeline
 
         protected override void Decode(IChannelHandlerContext context, string message, List<object> output)
         {
-            if (string.IsNullOrEmpty(message))
-            {
-                return;
-            }
-            
+            if (string.IsNullOrEmpty(message)) return;
+
             var packet = packetFactory.CreatePacket(message);
             if (packet is null)
             {
@@ -32,7 +29,7 @@ namespace Noskito.World.Network.Pipeline
             }
 
             output.Add(packet);
-            
+
             logger.Debug($"In [{packet.GetType().Name}]: {message}");
         }
     }

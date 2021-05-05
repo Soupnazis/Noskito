@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
-
-namespace Noskito.Database
+﻿namespace Noskito.Database
 {
     public class DbContextFactory
     {

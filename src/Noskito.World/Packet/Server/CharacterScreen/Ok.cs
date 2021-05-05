@@ -2,7 +2,6 @@
 {
     public class Ok : SPacket
     {
-        
     }
 
     public class OkCreator : SPacketCreator<Ok>

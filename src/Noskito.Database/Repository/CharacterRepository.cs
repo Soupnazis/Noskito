@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mapster;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Noskito.Database.Dto;
 using Noskito.Database.Entity;
 
@@ -13,7 +11,7 @@ namespace Noskito.Database.Repository
     {
         private readonly DbContextFactory contextFactory;
         private readonly Mapper<DbCharacter, CharacterDTO> mapper;
-        
+
         public CharacterRepository(DbContextFactory contextFactory, Mapper<DbCharacter, CharacterDTO> mapper)
         {
             this.contextFactory = contextFactory;
@@ -24,11 +22,9 @@ namespace Noskito.Database.Repository
         {
             using (var context = contextFactory.CreateContext())
             {
-                IEnumerable<DbCharacter> entities = await context.Characters.Where(x => x.AccountId == accountId).ToListAsync();
-                if (entities is null)
-                {
-                    return default;
-                }
+                IEnumerable<DbCharacter> entities =
+                    await context.Characters.Where(x => x.AccountId == accountId).ToListAsync();
+                if (entities is null) return default;
 
                 return mapper.Map(entities);
             }
@@ -65,11 +61,9 @@ namespace Noskito.Database.Repository
         {
             using (var context = contextFactory.CreateContext())
             {
-                var entity = await context.Characters.FirstOrDefaultAsync(x => x.AccountId == accountId && x.Slot == slot);
-                if (entity is null)
-                {
-                    return default;
-                }
+                var entity =
+                    await context.Characters.FirstOrDefaultAsync(x => x.AccountId == accountId && x.Slot == slot);
+                if (entity is null) return default;
 
                 return mapper.Map(entity);
             }

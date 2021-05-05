@@ -20,23 +20,18 @@ namespace Noskito.Login.Packet
         public CPacket CreatePacket(string source)
         {
             var split = source.Split(' ');
-            if (split.Length == 0)
-            {
-                throw new InvalidOperationException("Empty packet received");
-            }
+            if (split.Length == 0) throw new InvalidOperationException("Empty packet received");
 
             var header = split[0];
             var parameters = split.Length > 1 ? split.Skip(1).ToArray() : Array.Empty<string>();
 
             var creator = clientPackets.GetValueOrDefault(header);
             if (creator == null)
-            {
                 return new UnresolvedPacket
                 {
                     Header = header,
                     Parameters = parameters
                 };
-            }
 
             return creator.Create(parameters);
         }
@@ -45,9 +40,7 @@ namespace Noskito.Login.Packet
         {
             var creator = serverPackets.GetValueOrDefault(source.GetType());
             if (creator == null)
-            {
                 throw new InvalidOperationException($"There is no packet creator for {source.GetType()}");
-            }
 
             return creator.Create(source);
         }

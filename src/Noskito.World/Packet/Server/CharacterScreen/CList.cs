@@ -27,14 +27,14 @@ namespace Noskito.World.Packet.Server.CharacterScreen
     {
         protected override string CreatePacket(CList source)
         {
-            return $"clist " +
+            return "clist " +
                    $"{source.Slot} " +
                    $"{source.Name} " +
-                   $"0 " +
+                   "0 " +
                    $"{source.Gender.Format()} " +
                    $"{source.HairStyle.Format()} " +
                    $"{source.HairColor.Format()} " +
-                   $"0 " +
+                   "0 " +
                    $"{source.Job.Format()} " +
                    $"{source.Level} " +
                    $"{source.HeroLevel} " +

@@ -17,7 +17,7 @@ namespace Noskito.Cluster
                 .ConfigureServices(x =>
                 {
                     x.AddLogger();
-                    
+
                     x.AddGrpc();
                     x.AddCodeFirstGrpc();
                 })

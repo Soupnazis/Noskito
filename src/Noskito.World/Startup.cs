@@ -22,9 +22,9 @@ namespace Noskito.World
             services.AddDatabase();
 
             services.AddServerService();
-            
+
             services.AddNetworkServer();
-            
+
             services.AddMapManager();
 
             services.AddHostedService<WorldService>();
@@ -32,10 +32,7 @@ namespace Noskito.World
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
         }

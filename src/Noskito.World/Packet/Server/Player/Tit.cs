@@ -5,12 +5,12 @@
         public int ClassName { get; init; }
         public string Name { get; init; }
     }
-    
+
     public class TitCreator : SPacketCreator<Tit>
     {
         protected override string CreatePacket(Tit source)
         {
-            return $"tit " +
+            return "tit " +
                    $"{source.ClassName} " +
                    $"{source.Name}";
         }

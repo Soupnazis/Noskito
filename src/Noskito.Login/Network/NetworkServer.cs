@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
@@ -12,19 +11,19 @@ namespace Noskito.Login.Network
 {
     public sealed class NetworkServer
     {
-        private readonly ILogger logger;
         private readonly ServerBootstrap bootstrap;
         private readonly MultithreadEventLoopGroup bossGroup, workerGroup;
+        private readonly ILogger logger;
 
         private IChannel channel;
-        
+
         public NetworkServer(ILogger logger, PacketFactory packetFactory, ProcessorManager processorManager)
         {
             this.logger = logger;
 
             bossGroup = new MultithreadEventLoopGroup(1);
             workerGroup = new MultithreadEventLoopGroup();
-            
+
             bootstrap = new ServerBootstrap()
                 .Option(ChannelOption.SoBacklog, 100)
                 .Group(bossGroup, workerGroup)
@@ -39,10 +38,7 @@ namespace Noskito.Login.Network
                     client.PacketReceived += packet =>
                     {
                         var processor = processorManager.GetPacketProcessor(packet.GetType());
-                        if (processor is null)
-                        {
-                            return Task.CompletedTask;
-                        }
+                        if (processor is null) return Task.CompletedTask;
 
                         return processor.ProcessPacket(session, packet);
                     };
@@ -58,7 +54,7 @@ namespace Noskito.Login.Network
         public async Task Start(int port)
         {
             channel = await bootstrap.BindAsync(port);
-            
+
             logger.Debug($"Server successfully started on port {port}");
         }
 
@@ -68,7 +64,7 @@ namespace Noskito.Login.Network
 
             await bossGroup.ShutdownGracefullyAsync();
             await workerGroup.ShutdownGracefullyAsync();
-            
+
             logger.Debug("Server successfully shutdown");
         }
     }

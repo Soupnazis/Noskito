@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
@@ -19,10 +18,7 @@ namespace Noskito.World
                 })
                 .ConfigureWebHostDefaults(x =>
                 {
-                    x.UseKestrel(s =>
-                    {
-                        s.ListenAnyIP(16000, options => options.Protocols = HttpProtocols.Http2);
-                    });
+                    x.UseKestrel(s => { s.ListenAnyIP(16000, options => options.Protocols = HttpProtocols.Http2); });
                     x.UseStartup<Startup>();
                 })
                 .UseConsoleLifetime()

@@ -107,13 +107,10 @@ namespace Noskito.World.Packet.Extension
         /// <returns>parsed array value</returns>
         public static short?[] ToNullableShortArray(this string value, char separator = '.')
         {
-            string[] split = value.Split(separator);
+            var split = value.Split(separator);
             var array = new short?[split.Length];
 
-            for (int i = 0; i < split.Length; i++)
-            {
-                array[i] = split[i].ToNullableShort();
-            }
+            for (var i = 0; i < split.Length; i++) array[i] = split[i].ToNullableShort();
 
             return array;
         }
@@ -126,12 +123,9 @@ namespace Noskito.World.Packet.Extension
         /// <returns>parsed array value</returns>
         public static bool[] ToBoolArray(this string value, char separator = '.')
         {
-            string[] split = value.Split(separator);
+            var split = value.Split(separator);
             var array = new bool[split.Length];
-            for (int i = 0; i < split.Length; i++)
-            {
-                array[i] = split[i].ToBool();
-            }
+            for (var i = 0; i < split.Length; i++) array[i] = split[i].ToBool();
 
             return array;
         }
@@ -191,10 +185,7 @@ namespace Noskito.World.Packet.Extension
         public static string Format(this IEnumerable<short?> values, char separator = '.')
         {
             var sb = new StringBuilder();
-            foreach (var value in values)
-            {
-                sb.Append(value.Format()).Append(separator);
-            }
+            foreach (var value in values) sb.Append(value.Format()).Append(separator);
 
             return sb.ToString();
         }
@@ -202,10 +193,7 @@ namespace Noskito.World.Packet.Extension
         public static string Format(this IEnumerable<bool> values, char separator = '.')
         {
             var sb = new StringBuilder();
-            foreach (bool value in values)
-            {
-                sb.Append(value.Format()).Append(separator);
-            }
+            foreach (var value in values) sb.Append(value.Format()).Append(separator);
 
             return sb.ToString();
         }

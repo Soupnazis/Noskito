@@ -6,7 +6,7 @@ namespace Noskito.World.Game
     {
         public int X { get; init; }
         public int Y { get; init; }
-        
+
         public bool Equals(Position other)
         {
             return other.X == X && other.Y == Y;
@@ -14,7 +14,7 @@ namespace Noskito.World.Game
 
         public override bool Equals(object obj)
         {
-            return obj is Position && Equals((Position)obj);
+            return obj is Position && Equals((Position) obj);
         }
 
         public static bool operator ==(Position left, Position right)
@@ -26,7 +26,7 @@ namespace Noskito.World.Game
         {
             return !(left == right);
         }
-        
+
         public override int GetHashCode()
         {
             return HashCode.Combine(X, Y);

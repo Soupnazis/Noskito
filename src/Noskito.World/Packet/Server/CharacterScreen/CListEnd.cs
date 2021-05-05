@@ -2,9 +2,8 @@
 {
     public class CListEnd : SPacket
     {
-        
     }
-    
+
     public class CListEndCreator : SPacketCreator<CListEnd>
     {
         protected override string CreatePacket(CListEnd source)

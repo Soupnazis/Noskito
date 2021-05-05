@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Noskito.Communication.Abstraction.Server;
 using Noskito.Communication.Rpc.Extension;
 using Noskito.Communication.Server;
 

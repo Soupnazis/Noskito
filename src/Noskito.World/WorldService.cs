@@ -27,8 +27,8 @@ namespace Noskito.World
             do
             {
                 clusterOnline = await serverService.IsClusterOnline();
-            } 
-            while (!clusterOnline);
+            } while (!clusterOnline);
+
             var added = await serverService.AddWorldServer(new WorldServer
             {
                 Host = "127.0.0.1",
@@ -41,7 +41,7 @@ namespace Noskito.World
                 logger.Warning("Failed to register world server");
                 return;
             }
-            
+
             logger.Information("Starting server");
             await server.Start(20000);
         }

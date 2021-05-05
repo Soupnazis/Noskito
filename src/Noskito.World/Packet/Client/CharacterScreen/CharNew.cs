@@ -1,5 +1,4 @@
-﻿using System;
-using Noskito.Enum;
+﻿using Noskito.Enum;
 using Noskito.World.Packet.Extension;
 
 namespace Noskito.World.Packet.Client.CharacterScreen
@@ -12,7 +11,7 @@ namespace Noskito.World.Packet.Client.CharacterScreen
         public HairStyle HairStyle { get; init; }
         public Gender Gender { get; init; }
     }
-    
+
     public class CharNewCreator : CPacketCreator<CharNew>
     {
         public override string Header { get; } = "Char_NEW";

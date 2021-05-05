@@ -6,7 +6,7 @@ namespace Noskito.World.Packet.Client.CharacterScreen
     {
         public byte Slot { get; init; }
     }
-    
+
     public class SelectCreator : CPacketCreator<Select>
     {
         protected override Select CreatePacket(string[] parameters)

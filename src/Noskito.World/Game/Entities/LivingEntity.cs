@@ -7,6 +7,8 @@
         public int MaxHp { get; set; }
         public int MaxMp { get; set; }
 
+        public int Speed { get; set; }
+
         public bool IsAlive => Hp > 0;
     }
 }

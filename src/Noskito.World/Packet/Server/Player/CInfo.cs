@@ -23,14 +23,14 @@ namespace Noskito.World.Packet.Server.Player
         public byte MorphUpgrade { get; init; }
         public bool ArenaWinner { get; init; }
     }
-    
+
     public class CInfoCreator : SPacketCreator<CInfo>
     {
         protected override string CreatePacket(CInfo source)
         {
-            return $"c_info " +
+            return "c_info " +
                    $"{source.Name} " +
-                   $"- " +
+                   "- " +
                    $"{source.GroupId.Format()} " +
                    $"{source.FamilyId.Format()} " +
                    $"{source.FamilyName.Format()} " +

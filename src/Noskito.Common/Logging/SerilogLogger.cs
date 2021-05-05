@@ -10,7 +10,7 @@ namespace Noskito.Common.Logging
             .WriteTo.Console()
             .MinimumLevel.Debug()
             .CreateLogger();
-        
+
         public void Debug(string message)
         {
             logger.Debug(message);

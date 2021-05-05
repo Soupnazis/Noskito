@@ -6,10 +6,9 @@ namespace Noskito.Cluster.Manager
 {
     public class ServerManager
     {
+        private readonly List<WorldServer> servers = new();
         public bool IsMaintenanceMode { get; set; } = false;
 
-        private readonly List<WorldServer> servers = new();
-        
         public IEnumerable<WorldServer> GetWorldServers()
         {
             return servers;
@@ -18,11 +17,8 @@ namespace Noskito.Cluster.Manager
         public bool AddWorldServer(WorldServer server)
         {
             var exists = servers.Any(x => x.Host.Equals(server.Host) && x.Port.Equals(server.Port));
-            if (exists)
-            {
-                return false;
-            }
-            
+            if (exists) return false;
+
             servers.Add(server);
             return true;
         }

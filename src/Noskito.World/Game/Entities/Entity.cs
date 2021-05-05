@@ -8,7 +8,7 @@ namespace Noskito.World.Game.Entities
         public long Id { get; init; }
         public EntityType EntityType { get; init; }
         public string Name { get; set; }
-        
+
         public Map Map { get; set; }
         public Position Position { get; set; }
     }

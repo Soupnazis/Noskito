@@ -14,8 +14,8 @@ namespace Noskito.Login.Processor.Authentication
 {
     public class NoS0575Processor : PacketProcessor<NoS0575>
     {
-        private readonly ILogger logger;
         private readonly AccountRepository accountRepository;
+        private readonly ILogger logger;
         private readonly ServerService serverService;
 
         public NoS0575Processor(ILogger logger, AccountRepository accountRepository, ServerService serverService)
@@ -59,7 +59,7 @@ namespace Noskito.Login.Processor.Authentication
             }
 
             var grouped = worlds.GroupBy(x => x.Name).ToArray();
-            
+
             var convertedServers = new List<NsTeST.Server>();
             for (var i = 0; i < grouped.Length; i++)
             {
@@ -78,6 +78,7 @@ namespace Noskito.Login.Processor.Authentication
                     });
                 }
             }
+
             await client.SendPacket(new NsTeST
             {
                 RegionId = 0,
@@ -85,7 +86,7 @@ namespace Noskito.Login.Processor.Authentication
                 Account = account.Username,
                 Servers = convertedServers
             });
-            
+
             await client.Disconnect();
         }
     }

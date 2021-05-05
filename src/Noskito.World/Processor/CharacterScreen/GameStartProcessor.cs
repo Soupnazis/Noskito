@@ -10,13 +10,14 @@ namespace Noskito.World.Processor.CharacterScreen
         {
             var character = session.Character;
 
-            await session.SendTit(35, character.Name);
+            await session.SendTit(35);
             await session.SendFd(0, 1, 0, 1);
-            await session.SendCInfo(character);
-            await session.SendLev(character);
+            await session.SendCInfo();
+            await session.SendLev();
+            await session.SendStat();
 
-            await session.SendAt(character);
-            await session.SendCMap(character.Map);
+            await session.SendAt();
+            await session.SendCMap();
         }
     }
 }

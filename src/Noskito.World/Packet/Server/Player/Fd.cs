@@ -7,12 +7,12 @@
         public int Dignity { get; init; }
         public int DignityIcon { get; init; }
     }
-    
+
     public class FdCreator : SPacketCreator<Fd>
     {
         protected override string CreatePacket(Fd source)
         {
-            return $"fd " +
+            return "fd " +
                    $"{source.Reputation} " +
                    $"{source.RepucationIcon} " +
                    $"{source.Dignity} " +

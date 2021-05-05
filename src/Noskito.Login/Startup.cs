@@ -18,11 +18,11 @@ namespace Noskito.Login
             services.AddLogger();
             services.AddPacketFactory();
             services.AddPacketProcessing();
-                    
+
             services.AddDatabase();
-                    
+
             services.AddServerService();
-            
+
             services.AddNetworkServer();
 
             services.AddHostedService<LoginService>();
@@ -30,10 +30,7 @@ namespace Noskito.Login
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 
             app.UseRouting();
         }

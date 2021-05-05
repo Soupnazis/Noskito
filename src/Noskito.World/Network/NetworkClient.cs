@@ -9,19 +9,18 @@ namespace Noskito.World.Network
 {
     public class NetworkClient : ChannelHandlerAdapter
     {
-        private readonly ILogger logger;
         private readonly IChannel channel;
+        private readonly ILogger logger;
 
-        public event Func<CPacket, Task> PacketReceived; 
-        
         public NetworkClient(ILogger logger, IChannel channel)
         {
             this.logger = logger;
             this.channel = channel;
         }
-        
+
         public int EncryptionKey { get; set; }
-        public bool IsEncrypted => EncryptionKey != 0;
+
+        public event Func<CPacket, Task> PacketReceived;
 
         public Task SendPacket<T>(T packet) where T : SPacket
         {
@@ -43,10 +42,7 @@ namespace Noskito.World.Network
 
             try
             {
-                if (PacketReceived != null)
-                {
-                    await PacketReceived?.Invoke(packet);
-                }
+                if (PacketReceived != null) await PacketReceived?.Invoke(packet);
             }
             catch (Exception e)
             {

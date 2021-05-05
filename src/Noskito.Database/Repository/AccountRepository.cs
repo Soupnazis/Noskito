@@ -21,10 +21,7 @@ namespace Noskito.Database.Repository
             using (var context = contextFactory.CreateContext())
             {
                 var entity = await context.Accounts.FirstOrDefaultAsync(x => x.Username == name);
-                if (entity is null)
-                {
-                    return default;
-                }
+                if (entity is null) return default;
 
                 return mapper.Map(entity);
             }

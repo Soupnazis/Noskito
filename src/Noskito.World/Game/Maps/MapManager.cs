@@ -4,7 +4,7 @@
     {
         public Map GetMap(int mapId)
         {
-            return new Map
+            return new()
             {
                 Id = mapId,
                 Name = "Undefined"

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Noskito.Common.Extension;
 
-
 namespace Noskito.Login.Processor.Extension
 {
     public static class ServiceCollectionExtensions

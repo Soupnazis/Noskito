@@ -9,11 +9,11 @@ namespace Noskito.Login.Processor
         Type PacketType { get; }
         Task ProcessPacket(LoginSession client, CPacket packet);
     }
-    
+
     public abstract class PacketProcessor<T> : IPacketProcessor where T : CPacket
     {
         public Type PacketType { get; } = typeof(T);
-        
+
         public Task ProcessPacket(LoginSession client, CPacket packet)
         {
             return Process(client, (T) packet);

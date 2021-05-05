@@ -8,7 +8,7 @@ namespace Noskito.Login.Packet.Server.Authentication
         public string Account { get; init; }
         public int EncryptionKey { get; init; }
         public List<Server> Servers { get; init; } = new();
-        
+
         public class Server
         {
             public string Host { get; init; }
@@ -26,9 +26,7 @@ namespace Noskito.Login.Packet.Server.Authentication
         {
             var packet = $"NsTeST {source.RegionId} {source.Account} {source.EncryptionKey} ";
             foreach (var server in source.Servers)
-            {
                 packet += $"{server.Host}:{server.Port}:{server.Color}:{server.Id}.{server.Count}.{server.Name} ";
-            }
 
             packet += "-1:-1:-1:10000.10000.1";
 

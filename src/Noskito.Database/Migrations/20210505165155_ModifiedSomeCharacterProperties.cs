@@ -7,24 +7,24 @@ namespace Noskito.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<int>(
-                name: "Level",
-                table: "characters",
-                type: "integer",
+                "Level",
+                "characters",
+                "integer",
                 nullable: false,
                 oldClrType: typeof(byte),
                 oldType: "smallint");
 
             migrationBuilder.AddColumn<int>(
-                name: "HeroLevel",
-                table: "characters",
-                type: "integer",
+                "HeroLevel",
+                "characters",
+                "integer",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<int>(
-                name: "JobLevel",
-                table: "characters",
-                type: "integer",
+                "JobLevel",
+                "characters",
+                "integer",
                 nullable: false,
                 defaultValue: 0);
         }
@@ -32,17 +32,17 @@ namespace Noskito.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "HeroLevel",
-                table: "characters");
+                "HeroLevel",
+                "characters");
 
             migrationBuilder.DropColumn(
-                name: "JobLevel",
-                table: "characters");
+                "JobLevel",
+                "characters");
 
             migrationBuilder.AlterColumn<byte>(
-                name: "Level",
-                table: "characters",
-                type: "smallint",
+                "Level",
+                "characters",
+                "smallint",
                 nullable: false,
                 oldClrType: typeof(int),
                 oldType: "integer");

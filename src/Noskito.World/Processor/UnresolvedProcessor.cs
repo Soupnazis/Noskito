@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Noskito.Common.Extension;
 using Noskito.Common.Logging;
-using Noskito.Database.Dto;
 using Noskito.Database.Repository;
 using Noskito.World.Packet.Client;
 using Noskito.World.Packet.Server.CharacterScreen;
@@ -13,13 +12,14 @@ namespace Noskito.World.Processor
 {
     public class UnresolvedProcessor : PacketProcessor<UnresolvedPacket>
     {
-        private readonly ILogger logger;
         private readonly AccountRepository accountRepository;
         private readonly CharacterRepository characterRepository;
+        private readonly ILogger logger;
 
         private readonly Dictionary<Guid, string> storedUsernames = new();
-        
-        public UnresolvedProcessor(ILogger logger, AccountRepository accountRepository, CharacterRepository characterRepository)
+
+        public UnresolvedProcessor(ILogger logger, AccountRepository accountRepository,
+            CharacterRepository characterRepository)
         {
             this.logger = logger;
             this.accountRepository = accountRepository;
@@ -34,7 +34,7 @@ namespace Noskito.World.Processor
                 return;
             }
 
-            string username = storedUsernames.GetValueOrDefault(session.Id);
+            var username = storedUsernames.GetValueOrDefault(session.Id);
             if (username is null)
             {
                 storedUsernames[session.Id] = packet.Header;
@@ -43,7 +43,7 @@ namespace Noskito.World.Processor
 
             if (session.Account is null)
             {
-                AccountDTO accountDto = await accountRepository.GetAccountByName(username);
+                var accountDto = await accountRepository.GetAccountByName(username);
                 if (accountDto == null)
                 {
                     logger.Debug("Can't found account");
@@ -51,22 +51,22 @@ namespace Noskito.World.Processor
                     return;
                 }
 
-                if (!string.Equals(accountDto.Password, packet.Header.ToSha512(), StringComparison.CurrentCultureIgnoreCase))
+                if (!string.Equals(accountDto.Password, packet.Header.ToSha512(),
+                    StringComparison.CurrentCultureIgnoreCase))
                 {
                     logger.Debug("Wrong password");
                     await session.Disconnect();
                     return;
                 }
-                
+
                 storedUsernames.Remove(session.Id);
 
                 session.Account = accountDto;
 
-                IEnumerable<CharacterDTO> characters = await characterRepository.FindAll(accountDto.Id);
+                var characters = await characterRepository.FindAll(accountDto.Id);
 
                 await session.SendPacket(new CListStart());
                 foreach (var character in characters)
-                {
                     await session.SendPacket(new CList
                     {
                         Name = character.Name,
@@ -78,13 +78,12 @@ namespace Noskito.World.Processor
                         HeroLevel = 0,
                         JobLevel = character.JobLevel,
                         Job = character.Job,
-                        Equipments = Enumerable.Range(0, 10).Select(x => (short?)null),
-                        Pets = Enumerable.Range(0, 24).Select(x => (short?)null),
+                        Equipments = Enumerable.Range(0, 10).Select(x => (short?) null),
+                        Pets = Enumerable.Range(0, 24).Select(x => (short?) null),
                         QuestCompletion = 1,
                         QuestPart = 1,
                         Rename = false
                     });
-                }
                 await session.SendPacket(new CListEnd());
             }
         }

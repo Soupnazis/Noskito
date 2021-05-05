@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Noskito.Common.Logging;
 
@@ -19,10 +17,7 @@ namespace Noskito.Common.Extension
                 .Where(x => typeof(T).IsAssignableFrom(x))
                 .Where(x => !x.IsAbstract && !x.IsInterface);
 
-            foreach (var type in types)
-            {
-                services.AddTransient(typeof(T), type);
-            }
+            foreach (var type in types) services.AddTransient(typeof(T), type);
         }
     }
 }

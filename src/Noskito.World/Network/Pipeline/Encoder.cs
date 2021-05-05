@@ -29,20 +29,20 @@ namespace Noskito.World.Network.Pipeline
                 logger.Debug("Can't encode an empty or null string");
                 return;
             }
-            
+
             var bytes = Encoding.UTF8.GetBytes(message);
-            var encryptedData = new byte[bytes.Length + (int)Math.Ceiling((decimal)bytes.Length / 126) + 1];
+            var encryptedData = new byte[bytes.Length + (int) Math.Ceiling((decimal) bytes.Length / 126) + 1];
 
             var j = 0;
             for (var i = 0; i < bytes.Length; i++)
             {
-                if ((i % 126) == 0)
+                if (i % 126 == 0)
                 {
-                    encryptedData[i + j] = (byte)(bytes.Length - i > 126 ? 126 : bytes.Length - i);
+                    encryptedData[i + j] = (byte) (bytes.Length - i > 126 ? 126 : bytes.Length - i);
                     j++;
                 }
 
-                encryptedData[i + j] = (byte)~bytes[i];
+                encryptedData[i + j] = (byte) ~bytes[i];
             }
 
             encryptedData[^1] = 0xFF;
