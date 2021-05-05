@@ -39,6 +39,7 @@ namespace Noskito.World.Processor.CharacterScreen
             session.Character = new Character(session)
             {
                 Id = character.Id,
+                Name = character.Name,
                 Job = character.Job,
                 HairColor = character.HairColor,
                 HairStyle = character.HairStyle,

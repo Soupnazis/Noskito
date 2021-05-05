@@ -8,7 +8,7 @@
     
     public abstract class CPacketCreator<T> : CPacketCreator where T : CPacket
     {
-        public override string Header { get; } = typeof(T).Name;
+        public override string Header { get; } = typeof(T).Name.ToLower();
 
         public override CPacket Create(string[] parameters)
         {
