@@ -1,4 +1,4 @@
-﻿namespace Noskito.Enum.Character
+﻿namespace Noskito.Enum
 {
     public enum Job
     {

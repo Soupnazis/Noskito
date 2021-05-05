@@ -20,17 +20,15 @@ namespace Noskito.Login.Network.Pipeline
         protected override void Decode(IChannelHandlerContext context, string message, List<object> output)
         {
             var packet = packetFactory.CreatePacket(message);
-            if (packet == null)
+            if (packet is null)
             {
                 logger.Debug("Failed to create typed packet, skipping it");
                 return;
             }
-            
-#if(DEBUG)
-            logger.Debug($"In: {ObjectDumper.Dump(packet)}");
-#endif
-            
+
             output.Add(packet);
+            
+            logger.Debug($"In [{packet.GetType().Name}]: {message}");
         }
     }
 }

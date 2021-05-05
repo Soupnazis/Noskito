@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Noskito.Enum.Character;
+using Noskito.Enum;
 
 namespace Noskito.Database.Entity
 {
@@ -10,33 +10,46 @@ namespace Noskito.Database.Entity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public long Id { get; init; }
         
         [Required]
-        public long AccountId { get; set; }
+        public long AccountId { get; init; }
         
         [Required]
-        public string Name { get; set; }
+        public string Name { get; init; }
         
         [Required]
-        [DefaultValue(1)]
-        public byte Level { get; set; }
+        public int Level { get; init; }
         
         [Required]
-        public byte Slot { get; set; }
+        public int JobLevel { get; init; }
         
         [Required]
-        [DefaultValue(Job.Adventurer)]
-        public Job Job { get; set; }
+        public int HeroLevel { get; init; }
         
         [Required]
-        public HairColor HairColor { get; set; }
+        public byte Slot { get; init; }
         
         [Required]
-        public HairStyle HairStyle { get; set; }
+        public Job Job { get; init; }
         
         [Required]
-        public Gender Gender { get; set; }
+        public HairColor HairColor { get; init; }
+        
+        [Required]
+        public HairStyle HairStyle { get; init; }
+        
+        [Required]
+        public Gender Gender { get; init; }
+        
+        [Required]
+        public int X { get; init; }
+        
+        [Required]
+        public int Y { get; init; }
+        
+        [Required]
+        public int MapId { get; init; }
         
         public virtual DbAccount Account { get; set; }
     }

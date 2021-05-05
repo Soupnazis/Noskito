@@ -39,7 +39,7 @@ namespace Noskito.World.Network
                     client.PacketReceived += packet =>
                     {
                         var processor = processorManager.GetPacketProcessor(packet.GetType());
-                        if (processor == null)
+                        if (processor is null)
                         {
                             return Task.CompletedTask;
                         }

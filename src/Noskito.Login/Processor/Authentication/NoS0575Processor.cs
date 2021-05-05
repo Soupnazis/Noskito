@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Noskito.Common.Logging;
 using Noskito.Communication.Server;
 using Noskito.Database.Repository;
-using Noskito.Enum.Authentication;
+using Noskito.Enum;
 using Noskito.Login.Packet.Client.Authentication;
 using Noskito.Login.Packet.Server.Authentication;
 using Noskito.Login.Processor.Extension;
@@ -28,7 +28,7 @@ namespace Noskito.Login.Processor.Authentication
         protected override async Task Process(LoginSession client, NoS0575 packet)
         {
             var account = await accountRepository.GetAccountByName(packet.Username);
-            if (account == null)
+            if (account is null)
             {
                 await client.SendLoginFail(LoginFailReason.AccountOrPasswordWrong);
                 await client.Disconnect();
@@ -85,6 +85,7 @@ namespace Noskito.Login.Processor.Authentication
                 Account = account.Username,
                 Servers = convertedServers
             });
+            
             await client.Disconnect();
         }
     }

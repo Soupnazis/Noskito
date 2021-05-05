@@ -6,9 +6,9 @@ namespace Noskito.Login
 {
     public class LoginSession
     {
-        private readonly LoginClient client;
+        private readonly NetworkClient client;
 
-        public LoginSession(LoginClient client)
+        public LoginSession(NetworkClient client)
         {
             this.client = client;
         }

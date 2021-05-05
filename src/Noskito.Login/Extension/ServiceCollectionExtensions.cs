@@ -5,9 +5,9 @@ namespace Noskito.Login.Extension
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddLoginServer(this IServiceCollection services)
+        public static void AddNetworkServer(this IServiceCollection services)
         {
-            services.AddTransient<LoginServer>();
+            services.AddTransient<NetworkServer>();
         }
     }
 }

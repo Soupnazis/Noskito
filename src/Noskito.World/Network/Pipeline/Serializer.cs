@@ -27,11 +27,9 @@ namespace Noskito.World.Network.Pipeline
                 return;
             }
 
-#if(DEBUG)
-            logger.Debug($"Out: {ObjectDumper.Dump(message)}");
-#endif
-            
             output.Add(packet);
+            
+            logger.Debug($"Out [{message.GetType().Name}]: {packet}");
         }
     }
 }

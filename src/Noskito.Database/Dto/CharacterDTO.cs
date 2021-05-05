@@ -1,4 +1,4 @@
-﻿using Noskito.Enum.Character;
+﻿using Noskito.Enum;
 
 namespace Noskito.Database.Dto
 {
@@ -8,10 +8,15 @@ namespace Noskito.Database.Dto
         public long AccountId { get; init; }
         public byte Slot { get; init; }
         public string Name { get; init; }
-        public byte Level { get; init; }
-        public Job Job { get; set; }
-        public HairColor HairColor { get; set; }
-        public HairStyle HairStyle { get; set; }
-        public Gender Gender { get; set; }
+        public int Level { get; init; }
+        public int JobLevel { get; init; }
+        public int HeroLevel { get; init; }
+        public int X { get; init; }
+        public int Y { get; init; }
+        public int MapId { get; init; }
+        public Job Job { get; init; }
+        public HairColor HairColor { get; init; }
+        public HairStyle HairStyle { get; init; }
+        public Gender Gender { get; init; }
     }
 }

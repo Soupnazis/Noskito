@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Noskito.Database.Dto;
+using Noskito.World.Game.Entities;
 using Noskito.World.Network;
 using Noskito.World.Packet.Server;
 
@@ -11,6 +12,7 @@ namespace Noskito.World
         public Guid Id { get; } = Guid.NewGuid();
         
         public AccountDTO Account { get; set; }
+        public Character Character { get; set; }
         
         public int Key
         {

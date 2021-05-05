@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Noskito.Common.Extension;
 using Noskito.Common.Logging;
@@ -34,13 +35,13 @@ namespace Noskito.World.Processor
             }
 
             string username = storedUsernames.GetValueOrDefault(session.Id);
-            if (username == null)
+            if (username is null)
             {
                 storedUsernames[session.Id] = packet.Header;
                 return;
             }
 
-            if (session.Account == null)
+            if (session.Account is null)
             {
                 AccountDTO accountDto = await accountRepository.GetAccountByName(username);
                 if (accountDto == null)
@@ -75,7 +76,12 @@ namespace Noskito.World.Processor
                         Level = character.Level,
                         Gender = character.Gender,
                         HeroLevel = 0,
-                        JobLevel = 0,
+                        JobLevel = character.JobLevel,
+                        Job = character.Job,
+                        Equipments = Enumerable.Range(0, 10).Select(x => (short?)null),
+                        Pets = Enumerable.Range(0, 24).Select(x => (short?)null),
+                        QuestCompletion = 1,
+                        QuestPart = 1,
                         Rename = false
                     });
                 }

@@ -10,10 +10,10 @@ namespace Noskito.Login
     public class LoginService : IHostedService
     {
         private readonly ILogger logger;
-        private readonly LoginServer server;
+        private readonly NetworkServer server;
         private readonly ServerService serverService;
 
-        public LoginService(ILogger logger, LoginServer server, ServerService serverService)
+        public LoginService(ILogger logger, NetworkServer server, ServerService serverService)
         {
             this.logger = logger;
             this.server = server;

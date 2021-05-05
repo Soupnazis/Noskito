@@ -13,7 +13,7 @@ namespace Noskito.World.Packet.Client.CharacterScreen
 
         protected override GameStart CreatePacket(string[] parameters)
         {
-            return new GameStart();
+            return new ();
         }
     }
 }

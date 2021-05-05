@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Noskito.Enum.Authentication;
+using Noskito.Enum;
 using Noskito.Login.Packet.Server.Authentication;
 
 namespace Noskito.Login.Processor.Extension

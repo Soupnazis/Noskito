@@ -24,6 +24,8 @@ namespace Noskito.World
             services.AddServerService();
             
             services.AddNetworkServer();
+            
+            services.AddMapManager();
 
             services.AddHostedService<WorldService>();
         }

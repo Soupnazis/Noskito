@@ -1,4 +1,6 @@
-﻿namespace Noskito.World.Packet.Client.CharacterScreen
+﻿using Noskito.World.Packet.Extension;
+
+namespace Noskito.World.Packet.Client.CharacterScreen
 {
     public class Select : CPacket
     {
@@ -11,7 +13,7 @@
         {
             return new()
             {
-                Slot = byte.Parse(parameters[0])
+                Slot = parameters[0].ToByte()
             };
         }
     }

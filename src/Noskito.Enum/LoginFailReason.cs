@@ -1,4 +1,4 @@
-﻿namespace Noskito.Enum.Authentication
+﻿namespace Noskito.Enum
 {
     public enum LoginFailReason
     {

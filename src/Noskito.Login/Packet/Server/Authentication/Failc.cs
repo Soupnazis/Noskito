@@ -1,4 +1,4 @@
-﻿using Noskito.Enum.Authentication;
+﻿using Noskito.Enum;
 
 namespace Noskito.Login.Packet.Server.Authentication
 {

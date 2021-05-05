@@ -23,7 +23,7 @@ namespace Noskito.Login
                     
             services.AddServerService();
             
-            services.AddLoginServer();
+            services.AddNetworkServer();
 
             services.AddHostedService<LoginService>();
         }

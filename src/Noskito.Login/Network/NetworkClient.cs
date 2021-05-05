@@ -8,14 +8,14 @@ using Noskito.Login.Processor;
 
 namespace Noskito.Login.Network
 {
-    public sealed class LoginClient : ChannelHandlerAdapter
+    public sealed class NetworkClient : ChannelHandlerAdapter
     {
         private readonly ILogger logger;
         private readonly IChannel channel;
 
         public event Func<CPacket, Task> PacketReceived; 
         
-        public LoginClient(ILogger logger, IChannel channel)
+        public NetworkClient(ILogger logger, IChannel channel)
         {
             this.logger = logger;
             this.channel = channel;

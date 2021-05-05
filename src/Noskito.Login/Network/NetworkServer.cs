@@ -10,7 +10,7 @@ using Noskito.Login.Processor;
 
 namespace Noskito.Login.Network
 {
-    public sealed class LoginServer
+    public sealed class NetworkServer
     {
         private readonly ILogger logger;
         private readonly ServerBootstrap bootstrap;
@@ -18,7 +18,7 @@ namespace Noskito.Login.Network
 
         private IChannel channel;
         
-        public LoginServer(ILogger logger, PacketFactory packetFactory, ProcessorManager processorManager)
+        public NetworkServer(ILogger logger, PacketFactory packetFactory, ProcessorManager processorManager)
         {
             this.logger = logger;
 
@@ -33,13 +33,13 @@ namespace Noskito.Login.Network
                 {
                     var pipeline = x.Pipeline;
 
-                    var client = new LoginClient(logger, x);
+                    var client = new NetworkClient(logger, x);
                     var session = new LoginSession(client);
 
                     client.PacketReceived += packet =>
                     {
                         var processor = processorManager.GetPacketProcessor(packet.GetType());
-                        if (processor == null)
+                        if (processor is null)
                         {
                             return Task.CompletedTask;
                         }

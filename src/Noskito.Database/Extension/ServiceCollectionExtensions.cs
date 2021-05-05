@@ -9,6 +9,7 @@ namespace Noskito.Database.Extension
         {
             services.AddTransient<AccountRepository>();
             services.AddTransient<CharacterRepository>();
+            services.AddTransient(typeof(Mapper<,>));
             services.AddSingleton<DbContextFactory>();
         }
     }

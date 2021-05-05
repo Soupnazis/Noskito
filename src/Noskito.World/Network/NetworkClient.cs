@@ -53,5 +53,11 @@ namespace Noskito.World.Network
                 logger.Error($"Something happened when processing packet {packet.GetType().Name}", e);
             }
         }
+
+        public override async void ExceptionCaught(IChannelHandlerContext context, Exception exception)
+        {
+            logger.Error($"Something happened with client {channel.Id.AsShortText()}", exception);
+            await Disconnect();
+        }
     }
 }

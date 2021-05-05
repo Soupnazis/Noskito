@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Noskito.Common.Logging;
 using Noskito.World.Packet.Client;
 using Noskito.World.Packet.Server;
 
@@ -8,11 +9,13 @@ namespace Noskito.World.Packet
 {
     public class PacketFactory
     {
+        private readonly ILogger logger;
         private readonly Dictionary<string, CPacketCreator> clientPackets;
         private readonly Dictionary<Type, SPacketCreator> serverPackets;
 
-        public PacketFactory(IEnumerable<CPacketCreator> clientPackets, IEnumerable<SPacketCreator> serverPackets)
+        public PacketFactory(ILogger logger, IEnumerable<CPacketCreator> clientPackets, IEnumerable<SPacketCreator> serverPackets)
         {
+            this.logger = logger;
             this.clientPackets = clientPackets.ToDictionary(x => x.Header);
             this.serverPackets = serverPackets.ToDictionary(x => x.PacketType);
         }
@@ -27,7 +30,7 @@ namespace Noskito.World.Packet
 
             if (!int.TryParse(split[0], out int packetId))
             {
-                throw new InvalidOperationException("Failed to parse packet id");
+                throw new InvalidOperationException($"Failed to parse packet id {split[0]}");
             }
             
             var header = split[1];

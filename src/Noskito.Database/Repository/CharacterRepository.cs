@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Noskito.Database.Dto;
 using Noskito.Database.Entity;
 
@@ -10,10 +12,12 @@ namespace Noskito.Database.Repository
     public class CharacterRepository
     {
         private readonly DbContextFactory contextFactory;
-
-        public CharacterRepository(DbContextFactory contextFactory)
+        private readonly Mapper<DbCharacter, CharacterDTO> mapper;
+        
+        public CharacterRepository(DbContextFactory contextFactory, Mapper<DbCharacter, CharacterDTO> mapper)
         {
             this.contextFactory = contextFactory;
+            this.mapper = mapper;
         }
 
         public async Task<IEnumerable<CharacterDTO>> FindAll(long accountId)
@@ -21,15 +25,12 @@ namespace Noskito.Database.Repository
             using (var context = contextFactory.CreateContext())
             {
                 IEnumerable<DbCharacter> entities = await context.Characters.Where(x => x.AccountId == accountId).ToListAsync();
-                return entities.Select(x => new CharacterDTO
+                if (entities is null)
                 {
-                    Id = x.Id,
-                    AccountId = x.AccountId,
-                    Name = x.Name,
-                    Level = x.Level,
-                    Slot = x.Slot,
-                    Job = x.Job
-                });
+                    return default;
+                }
+
+                return mapper.Map(entities);
             }
         }
 
@@ -55,14 +56,22 @@ namespace Noskito.Database.Repository
         {
             using (var context = contextFactory.CreateContext())
             {
-                await context.Characters.AddAsync(new DbCharacter
-                {
-                    AccountId = character.AccountId,
-                    Name = character.Name,
-                    Slot = character.Slot
-                });
-
+                await context.Characters.AddAsync(mapper.Map(character));
                 await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<CharacterDTO> GetCharacterInSlot(long accountId, byte slot)
+        {
+            using (var context = contextFactory.CreateContext())
+            {
+                var entity = await context.Characters.FirstOrDefaultAsync(x => x.AccountId == accountId && x.Slot == slot);
+                if (entity is null)
+                {
+                    return default;
+                }
+
+                return mapper.Map(entity);
             }
         }
     }
