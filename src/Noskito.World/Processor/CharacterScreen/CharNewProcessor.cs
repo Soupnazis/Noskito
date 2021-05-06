@@ -35,7 +35,7 @@ namespace Noskito.World.Processor.CharacterScreen
                 return;
             }
 
-            await characterRepository.Create(new CharacterDTO
+            await characterRepository.Save(new CharacterDTO
             {
                 Name = packet.Name,
                 Slot = packet.Slot,

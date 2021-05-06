@@ -1,4 +1,5 @@
-﻿using Noskito.Enum;
+﻿using System;
+using Noskito.Enum;
 
 namespace Noskito.World.Game.Entities
 {

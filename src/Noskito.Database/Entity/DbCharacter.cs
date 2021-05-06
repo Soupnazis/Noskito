@@ -4,7 +4,6 @@ using Noskito.Enum;
 
 namespace Noskito.Database.Entity
 {
-    [Table("characters")]
     public class DbCharacter
     {
         [Key]

@@ -4,8 +4,19 @@ namespace Noskito.World.Game
 {
     public readonly struct Position : IEquatable<Position>
     {
+        private static readonly double Sqrt2 = Math.Sqrt(2);
+        
         public int X { get; init; }
         public int Y { get; init; }
+
+        public double GetDistance(Position position)
+        {
+            var iDx = Math.Abs(X - position.X);
+            var iDy = Math.Abs(Y - position.Y);
+            var min = Math.Min(iDx, iDy);
+            var max = Math.Max(iDx, iDy);
+            return min * Sqrt2 + max - min;
+        }
 
         public bool Equals(Position other)
         {

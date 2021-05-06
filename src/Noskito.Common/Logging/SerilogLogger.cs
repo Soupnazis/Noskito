@@ -26,6 +26,11 @@ namespace Noskito.Common.Logging
             logger.Warning(message);
         }
 
+        public void Error(string message)
+        {
+            logger.Error(message);
+        }
+
         public void Error(string message, Exception exception)
         {
             logger.Error(exception, message);

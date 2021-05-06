@@ -7,6 +7,7 @@ namespace Noskito.Database
     {
         public DbSet<DbAccount> Accounts { get; set; }
         public DbSet<DbCharacter> Characters { get; set; }
+        public DbSet<DbMap> Maps { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

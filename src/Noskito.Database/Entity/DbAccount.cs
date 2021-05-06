@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Noskito.Database.Entity
 {
-    [Table("accounts")]
     public class DbAccount
     {
         [Key]

@@ -48,7 +48,7 @@ namespace Noskito.Database.Repository
             }
         }
 
-        public async Task Create(CharacterDTO character)
+        public async Task Save(CharacterDTO character)
         {
             using (var context = contextFactory.CreateContext())
             {

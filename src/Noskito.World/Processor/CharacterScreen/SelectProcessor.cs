@@ -34,7 +34,7 @@ namespace Noskito.World.Processor.CharacterScreen
                 return;
             }
 
-            var map = mapManager.GetMap(character.MapId);
+            var map = await mapManager.GetMap(character.MapId);
 
             session.Character = new Character(session)
             {
@@ -50,10 +50,10 @@ namespace Noskito.World.Processor.CharacterScreen
                     Y = character.Y
                 },
                 Map = map,
-                Hp = 1,
-                Mp = 1,
-                MaxHp = 1,
-                MaxMp = 1
+                Hp = 300,
+                Mp = 250,
+                MaxHp = 300,
+                MaxMp = 250
             };
 
             await session.SendPacket(new Ok());
