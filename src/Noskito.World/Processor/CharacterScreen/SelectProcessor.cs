@@ -44,16 +44,23 @@ namespace Noskito.World.Processor.CharacterScreen
                 HairColor = character.HairColor,
                 HairStyle = character.HairStyle,
                 Level = character.Level,
+                JobLevel = character.JobLevel,
+                HeroLevel = character.HeroLevel,
+                Experience = character.Experience,
+                JobExperience = character.JobExperience,
+                HeroExperience = character.HeroExperience,
                 Position = new Position
                 {
                     X = character.X,
                     Y = character.Y
                 },
                 Map = map,
-                Hp = 300,
-                Mp = 250,
+                Hp = character.Hp,
+                Mp = character.Mp,
                 MaxHp = 300,
-                MaxMp = 250
+                MaxMp = 150,
+                Reputation = character.Reputation,
+                Dignity = character.Dignity,
             };
 
             await session.SendPacket(new Ok());

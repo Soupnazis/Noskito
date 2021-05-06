@@ -20,6 +20,16 @@ namespace Noskito.Database.Entity
 
         [Required] public int HeroLevel { get; init; }
 
+        [Required] public long Experience { get; init; }
+        [Required] public long JobExperience { get; init; }
+        [Required] public long HeroExperience { get; init; }
+        
+        [Required] public long Reputation { get; init; }
+        [Required] public int Dignity { get; init; }
+        
+        [Required] public int Hp { get; init; }
+        [Required] public int Mp { get; init; }
+        
         [Required] public byte Slot { get; init; }
 
         [Required] public Job Job { get; init; }

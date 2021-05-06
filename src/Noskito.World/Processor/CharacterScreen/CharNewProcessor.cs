@@ -48,7 +48,9 @@ namespace Noskito.World.Processor.CharacterScreen
                 HairStyle = packet.HairStyle,
                 MapId = 1,
                 X = 75,
-                Y = 115
+                Y = 115,
+                Hp = 300,
+                Mp = 150,
             });
 
             await session.SendPacket(new Success());

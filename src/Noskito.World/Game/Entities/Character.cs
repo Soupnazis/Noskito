@@ -19,6 +19,13 @@ namespace Noskito.World.Game.Entities
         public int Level { get; set; }
         public int JobLevel { get; set; }
         public int HeroLevel { get; set; }
+        
+        public long Experience { get; set; }
+        public long JobExperience { get; set; }
+        public long HeroExperience { get; set; }
+        
+        public long Reputation { get; set; }
+        public int Dignity { get; set; }
 
         public WorldSession Session { get; }
     }
